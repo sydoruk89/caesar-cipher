@@ -31,34 +31,38 @@ def encrypt(plain_text, key):
     return encrypted_text
 
 def decrypt(encoded, key):
+    """
+    The function takes an encrypted text and a key and decrypt a text.
+    ('bcd', 1) --> 'abc'
+    """
     return encrypt(encoded, -key)
 
-def decrypt_without_key(encoded):
+def print_all_versions(encoded):
+    """
+    The function takes an dencrypted text and store 26 versions into a list.
+    """
     list_var = []
-    text = ''
     for i in range(26):
-        decrypted_text = ''
-        for char in encoded:
-            if re.match('[^a-zA-Z]', char):
-                decrypted_text += char
-            elif char.isupper():
-                decrypted_text += chr((ord(char) + i - 65) % 26 + 65)
-            else:
-                decrypted_text += chr((ord(char) + i - 97) % 26 + 97)
-        list_var.append(decrypted_text)
-        decrypted_text = ''
-    for el in list_var:
+        list_var.append(encrypt(encoded, i))
+    return list_var
+
+def decrypt_without_key(encoded):
+    """
+    The function takes an dencrypted text and encrypt it without a key.
+    """
+    versions = print_all_versions(encoded)
+    text = ''
+    for el in versions:
         words = el.split()
         count = 0
         for word in words:
             if word.lower() in stored_words:
                 count += 1
         if count / len(words) > 0.8:
-            print(count / len(words))
             for el in words:
                 text += f' {el}'
             return text
 
 if __name__ == "__main__":
-    m = encrypt('It was the best of times, it was the worst of times.', 34)
+    m = encrypt('It was the best of times, it was the worst of times.', 19)
     print(decrypt_without_key(m))
