@@ -48,7 +48,7 @@ def print_all_versions(encoded):
 
 def decrypt_without_key(encoded):
     """
-    The function takes an dencrypted text and encrypt it without a key.
+    The function takes an encrypted text and dencrypts it without a key.
     """
     versions = print_all_versions(encoded)
     text = ''
