@@ -61,7 +61,7 @@ def decrypt_without_key(encoded):
         if count / len(words) > 0.8:
             for el in words:
                 text += f' {el}'
-            return text
+            return text.lstrip()
 
 if __name__ == "__main__":
     m = encrypt('It was the best of times, it was the worst of times.', 19)
