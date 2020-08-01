@@ -56,9 +56,10 @@ def decrypt_without_key(encoded):
         words = el.split()
         count = 0
         for word in words:
-            if word.lower() in stored_words:
+            clean_word = re.sub(r'[^a-zA-Z]+', '', word).lower()
+            if clean_word in stored_words:
                 count += 1
-        if count / len(words) > 0.8:
+        if count / len(words) > 0.9:
             for el in words:
                 text += f' {el}'
             return text.lstrip()
